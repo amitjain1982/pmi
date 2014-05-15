@@ -15,6 +15,7 @@
 		<link rel="stylesheet" href="${resource(dir: 'css', file: 'main.css')}" type="text/css">
 		<link rel="stylesheet" href="${resource(dir: 'css', file: 'mobile.css')}" type="text/css">
 		<g:layoutHead/>
+        <r:require module="londiniumBase"/>
 		<g:javascript library="application"/>
         <r:require modules="bootstrap"/>
         <r:require modules="jquery"/>
