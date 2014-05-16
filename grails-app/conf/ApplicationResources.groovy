@@ -4,6 +4,9 @@ modules = {
     }
 
     londinium {
+        resource url: 'http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js'
+        resource url: 'http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/jquery-ui.min.js'
+
         resource url: '/londinium/js/plugins/interface/datatables.min.js'
         resource url: '/londinium/js/plugins/interface/daterangepicker.js'
         resource url: '/londinium/js/plugins/interface/hover_dropdown.min.js'
@@ -11,6 +14,7 @@ modules = {
         resource url: '/londinium/js/plugins/interface/mousewheel.js'
         resource url: '/londinium/js/plugins/interface/prettify.js'
         //css
+        resource url: '/londinium/css/bootstrap.min.css'
         resource url: '/londinium/css/londinium-theme.css'
         resource url: '/londinium/css/styles.css'
         resource url: '/londinium/css/icons.css'
@@ -30,6 +34,7 @@ modules = {
         resource url: '/londinium/js/plugins/forms/validate.min.js'
 
         resource url: '/londinium/js/plugins/interface/collapsible.min.js'
+        resource url: 'londinium/js/bootstrap.min.js'
 
         resource url: '/londinium/js/application.js'
         resource url: '/londinium/js/application_blank.js'
