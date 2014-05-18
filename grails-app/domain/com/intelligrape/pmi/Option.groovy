@@ -12,10 +12,15 @@ class Option {
     static belongsTo = [question: Question]
 
     static constraints = {
-        sequenceNumber(unique: true)
-        name(unique: true)
         score(min: 0.doubleValue())
+        sequenceNumber(nullable: true)
     }
 
+    static mapping = {
+        table(name: 'question_option')
+    }
 
+    public String toString() {
+        return name
+    }
 }

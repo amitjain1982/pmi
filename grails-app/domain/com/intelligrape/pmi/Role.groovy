@@ -2,13 +2,13 @@ package com.intelligrape.pmi
 
 class Role {
 
-	String authority
+    String authority
 
-	static mapping = {
-		cache true
-	}
+    static mapping = {
+        cache true
+    }
 
-	static constraints = {
-		authority blank: false, unique: true
-	}
+    static constraints = {
+        authority blank: false, unique: true
+    }
 }

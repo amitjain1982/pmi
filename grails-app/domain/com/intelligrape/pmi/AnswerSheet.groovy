@@ -18,9 +18,9 @@ class AnswerSheet {
 
 
     static hasMany = [answers: Answer]
-    static belongsTo = [questionare: Questionare]
+    static belongsTo = [questionnaire: Questionnaire]
 
-    static constraints = { comment(nullable: true,maxSize: 200) }
+    static constraints = { comment(nullable: true, maxSize: 200) }
 
 
 }

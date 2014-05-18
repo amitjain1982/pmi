@@ -14,17 +14,20 @@ class UserService {
     def utilService
     def springSecurityService
 
-    public User updateOrCreateUser(OAuthToken oAuthToken) {
+    public OAuthToken updateOrCreateUser(OAuthToken oAuthToken) {
         User user
+
         if (springSecurityService.loggedIn) {
             user = addAuthIdsToUser(oAuthToken)
         } else {
             user = createUser(oAuthToken)
         }
-        return user
+
+        oAuthToken = updateOAuthToken(oAuthToken,user)
+        return user ? oAuthToken : null
     }
 
-    public User createUser(OAuthToken oAuthToken, OAuthCreateAccountCommand command) {
+    public User createUser(OAuthToken oAuthToken, OAuthCreateAccountCommand command=null) {
         String username = command?.username ?: oAuthToken.socialId
         String password = command?.password1 ?: RandomStringUtils.randomAlphabetic(10)
 
@@ -62,8 +65,8 @@ class UserService {
     }
 
     OAuthToken updateOAuthToken(OAuthToken oAuthToken, User user) {
-        Collection<?> userAuthorities = user.authorities
-        def authorities = userAuthorities.collect { new GrantedAuthorityImpl(it.role) }
+        Collection<Role> userAuthorities = user.authorities
+       def authorities = userAuthorities.collect { new GrantedAuthorityImpl(it.authority) }
 
         oAuthToken.principal = new GrailsUser(user.username, user.password, user.enabled, !user.accountExpired,
                 !user.passwordExpired, !user.accountLocked,

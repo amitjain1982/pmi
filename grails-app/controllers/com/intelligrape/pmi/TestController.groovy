@@ -11,31 +11,23 @@ class TestController {
     OauthService oauthService
 
     def index() {
-        User user = springSecurityService.currentUser
-        println user
-        //render user.username
 
         render(view: 'login')
-
 
     }
 
 
     def accessToken() {
-
         User user = springSecurityService.currentUser
         render user.username
-
-//        render oauthService.getOauthClient()
-
     }
 
-    def oauth2callback() {
 
-        render "hello"
-    }
 
     def success() {
         render "success"
     }
+
+
+
 }

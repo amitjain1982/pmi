@@ -10,12 +10,13 @@ class Question {
     Date lastUpdated
 
     static hasMany = [options: Option]
-    static belongsTo = [questionare: Questionare]
+    static belongsTo = [questionnaire: Questionnaire]
 
     static constraints = {
         sequenceNumber(blank: false)
-        text(unique: true, blank: false)
+        text(blank: false)
         detailedDescription(nullable: true)
+        options(minSize: 2)
     }
 
 

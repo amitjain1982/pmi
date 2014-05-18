@@ -73,6 +73,14 @@ grails {
     }
 }
 
+//enable fail on error for save operation on all domains
+grails.gorm.failOnError = true
+
+
+grails.plugin.springsecurity.roleHierarchy = '''
+   ROLE_ADMIN > ROLE_USER
+'''
+
 grails.converters.encoding = "UTF-8"
 // scaffolding templates configuration
 grails.scaffolding.templates.domainSuffix = 'Instance'
@@ -122,6 +130,13 @@ log4j = {
             'org.hibernate',
             'net.sf.ehcache.hibernate'
 
+
+    root {
+        info()
+        debug()
+    }
+
+
 }
 
 oauth {
@@ -145,7 +160,7 @@ oauth {
 // Added by the Spring Security Core plugin:
 grails.plugin.springsecurity.userLookup.userDomainClassName = 'com.intelligrape.pmi.User'
 grails.plugin.springsecurity.userLookup.authorityJoinClassName = 'com.intelligrape.pmi.UserRole'
-grails.plugin.springsecurity.authority.className = 'com.intelligrape.pmi.Role'
+grails.plugin.springsecurity.authority.className = 'com.intelligrape.pmi.RoleType'
 grails.plugin.springsecurity.successHandler.defaultTargetUrl = '/test/accessToken'
 grails.plugin.springsecurity.successHandler.alwaysUseDefault = true
 grails.plugin.springsecurity.controllerAnnotations.staticRules = [
