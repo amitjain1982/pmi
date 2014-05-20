@@ -21,8 +21,8 @@ class OptionControllerSpec extends Specification {
             controller.index()
 
         then:"The model is correct"
-            !model.optionInstanceList
-            model.optionInstanceCount == 0
+            !model.optionList
+            model.optionCount == 0
     }
 
     void "Test the create action returns the correct model"() {
@@ -30,7 +30,7 @@ class OptionControllerSpec extends Specification {
             controller.create()
 
         then:"The model is correctly created"
-            model.optionInstance!= null
+            model.option!= null
     }
 
     void "Test the save action correctly persists an instance"() {
@@ -41,7 +41,7 @@ class OptionControllerSpec extends Specification {
             controller.save(option)
 
         then:"The create view is rendered again with the correct model"
-            model.optionInstance!= null
+            model.option!= null
             view == 'create'
 
         when:"The save action is executed with a valid instance"
@@ -70,7 +70,7 @@ class OptionControllerSpec extends Specification {
             controller.show(option)
 
         then:"A model is populated containing the domain instance"
-            model.optionInstance == option
+            model.option == option
     }
 
     void "Test that the edit action returns the correct model"() {
@@ -86,7 +86,7 @@ class OptionControllerSpec extends Specification {
             controller.edit(option)
 
         then:"A model is populated containing the domain instance"
-            model.optionInstance == option
+            model.option == option
     }
 
     void "Test the update action performs an update on a valid domain instance"() {
@@ -106,7 +106,7 @@ class OptionControllerSpec extends Specification {
 
         then:"The edit view is rendered again with the invalid instance"
             view == 'edit'
-            model.optionInstance == option
+            model.option == option
 
         when:"A valid domain instance is passed to the update action"
             response.reset()

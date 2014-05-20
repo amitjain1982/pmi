@@ -26,6 +26,8 @@
 					
 						<g:sortableColumn property="score" title="${message(code: 'option.score.label', default: 'Score')}" />
 					
+						<g:sortableColumn property="sequenceNumber" title="${message(code: 'option.sequenceNumber.label', default: 'Sequence Number')}" />
+					
 						<g:sortableColumn property="dateCreated" title="${message(code: 'option.dateCreated.label', default: 'Date Created')}" />
 					
 						<g:sortableColumn property="lastUpdated" title="${message(code: 'option.lastUpdated.label', default: 'Last Updated')}" />
@@ -34,32 +36,30 @@
 					
 						<th><g:message code="option.question.label" default="Question" /></th>
 					
-						<g:sortableColumn property="sequenceNumber" title="${message(code: 'option.sequenceNumber.label', default: 'Sequence Number')}" />
-					
 					</tr>
 				</thead>
 				<tbody>
-				<g:each in="${optionInstanceList}" status="i" var="optionInstance">
+				<g:each in="${optionList}" status="i" var="option">
 					<tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
 					
-						<td><g:link action="show" id="${optionInstance.id}">${fieldValue(bean: optionInstance, field: "score")}</g:link></td>
+						<td><g:link action="show" id="${option.id}">${fieldValue(bean: option, field: "score")}</g:link></td>
 					
-						<td><g:formatDate date="${optionInstance.dateCreated}" /></td>
+						<td>${fieldValue(bean: option, field: "sequenceNumber")}</td>
 					
-						<td><g:formatDate date="${optionInstance.lastUpdated}" /></td>
+						<td><g:formatDate date="${option.dateCreated}" /></td>
 					
-						<td>${fieldValue(bean: optionInstance, field: "name")}</td>
+						<td><g:formatDate date="${option.lastUpdated}" /></td>
 					
-						<td>${fieldValue(bean: optionInstance, field: "question")}</td>
+						<td>${fieldValue(bean: option, field: "name")}</td>
 					
-						<td>${fieldValue(bean: optionInstance, field: "sequenceNumber")}</td>
+						<td>${fieldValue(bean: option, field: "question")}</td>
 					
 					</tr>
 				</g:each>
 				</tbody>
 			</table>
 			<div class="pagination">
-				<g:paginate total="${optionInstanceCount ?: 0}" />
+				<g:paginate total="${optionCount ?: 0}" />
 			</div>
 		</div>
 	</body>

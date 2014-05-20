@@ -20,7 +20,7 @@ environments {
         dataSource {
             username = "root"
             password = "igdefault"
-            dbCreate = "create" // one of 'create', 'create-drop', 'update', 'validate', ''
+            dbCreate = "create-drop" // one of 'create', 'create-drop', 'update', 'validate', ''
             url = "jdbc:mysql://localhost:3306/pmi"
             readOnly = false
         }

@@ -39,20 +39,20 @@
 					</tr>
 				</thead>
 				<tbody>
-				<g:each in="${questionnaireInstanceList}" status="i" var="questionnaireInstance">
+				<g:each in="${questionnaireList}" status="i" var="questionnaire">
 					<tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
 					
-						<td><g:link action="show" id="${questionnaireInstance.id}">${fieldValue(bean: questionnaireInstance, field: "description")}</g:link></td>
+						<td><g:link action="show" id="${questionnaire.id}">${fieldValue(bean: questionnaire, field: "description")}</g:link></td>
 					
-						<td><g:formatDate date="${questionnaireInstance.expiryDate}" /></td>
+						<td><g:formatDate date="${questionnaire.expiryDate}" /></td>
 					
-						<td>${fieldValue(bean: questionnaireInstance, field: "category")}</td>
+						<td>${fieldValue(bean: questionnaire, field: "category")}</td>
 					
-						<td><g:formatDate date="${questionnaireInstance.dateCreated}" /></td>
+						<td><g:formatDate date="${questionnaire.dateCreated}" /></td>
 					
-						<td><g:formatDate date="${questionnaireInstance.lastUpdated}" /></td>
+						<td><g:formatDate date="${questionnaire.lastUpdated}" /></td>
 					
-						<td>${fieldValue(bean: questionnaireInstance, field: "status")}</td>
+						<td>${fieldValue(bean: questionnaire, field: "status")}</td>
 					
 					</tr>
 				</g:each>

@@ -21,7 +21,7 @@ class BootStrap {
     BootstrapService bootstrapService
 
     def init = { servletContext ->
-
+        println "Creating bootstrap data"
         bootstrapService.initialize()
     }
 

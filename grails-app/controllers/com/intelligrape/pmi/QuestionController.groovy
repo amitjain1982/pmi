@@ -1,95 +1,109 @@
 package com.intelligrape.pmi
 
+import com.intelligrape.pmi.co.OptionCO
+import com.intelligrape.pmi.co.QuestionCO
 import com.sun.jndi.url.iiopname.iiopnameURLContextFactory
 
 import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
 
-@Transactional(readOnly = true)
+@Transactional
 class QuestionController {
 
-    static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
+    def questionService
 
-    def index(Integer max) {
-        params.max = Math.min(max ?: 10, 100)
-        respond Question.list(params), model: [questionInstanceCount: Question.count()]
-    }
+    static allowedMethods = [save: "POST", update: "PUT"]
 
-    def show(Question questionInstance) {
-        respond questionInstance
-    }
 
     def create() {
-        List<Option> optionInstanceList = new ArrayList<Option>()
-        respond(questionInstance: new Question(params), optionInstanceList: optionInstanceList)
+
+        Questionnaire questionnaire = Questionnaire.findById(params.long('questionnaireId'))
+        QuestionCO questionCO = new QuestionCO()
+        questionCO.optionCOs = [new OptionCO(), new OptionCO()]
+        render(view: 'create', model: [questionCO: questionCO, questionnaire: questionnaire])
     }
 
     @Transactional
-    def save(Question questionInstance, List<Option> optionInstanceList) {
+    def save(QuestionCO questionCO) {
 
-        saveQuestion(questionInstance)
-        saveOptions(questionInstance, optionInstanceList)
+        Question question = questionService.saveQuestion(questionCO)
+
         request.withFormat {
             form {
-                flash.message = message(code: 'default.created.message', args: [message(code: 'questionInstance.label', default: 'Question'), questionInstance.id])
-                redirect questionInstance
+                flash.message = message(code: 'default.created.message', args: [message(code: 'question.label', default: 'Question'), question.id])
+                redirect question.questionnaire
             }
-            '*' { respond questionInstance, [status: CREATED] }
+            '*' { respond question, [status: CREATED] }
         }
 
 
     }
 
-    def edit(Question questionInstance) {
-        respond questionInstance
+    def edit(Question question) {
+        println "question " + question
+        QuestionCO questionCO = new QuestionCO(question)
+        render(view: 'edit', model: [questionCO: questionCO])
     }
 
     @Transactional
-    def update(Question questionInstance) {
-        if (questionInstance == null) {
+    def update(QuestionCO questionCO) {
+        if (questionCO == null) {
             notFound()
             return
         }
 
-        if (questionInstance.hasErrors()) {
-            respond questionInstance.errors, view: 'edit'
+        if (questionCO.hasErrors()) {
+            respond questionCO.errors, view: 'edit'
             return
         }
+        Question question = Question.get(questionCO.id)
+        Set<Option> options = question.options
+        // find option and update it
+        // create new option if option id not found
+        // delete option not found in optionCO
 
-        questionInstance.save flush: true
+        //delete options that were deleted by the user
+        options.findAll{! questionCO.optionCOs*.id.contains(it.id)}.each{
+            question.removeFromOptions(it)
+            it.delete()
+        }
+
+        questionCO.optionCOs?.each{OptionCO co->
+            Option option = options.find{it.id == co.id}
+            if(option){
+                option.name = co.name
+                option.score = co.score
+                option.sequenceNumber = co.sequenceNumber
+                option.save()
+            }else{
+                option = new Option(co, question)
+                option.save()
+                question.addToOptions(option)
+            }
+        }
+
+        question.save flush: true
 
         request.withFormat {
             form {
-                flash.message = message(code: 'default.updated.message', args: [message(code: 'Question.label', default: 'Question'), questionInstance.id])
-                redirect questionInstance
+                flash.message = message(code: 'default.updated.message', args: [message(code: 'Question.label', default: 'Question'), question.id])
+                redirect question.questionnaire
             }
-            '*' { respond questionInstance, [status: OK] }
+            '*' { respond question.questionnaire, [status: OK] }
         }
     }
 
-    @Transactional
-    def delete(Question questionInstance) {
-
-        if (questionInstance == null) {
-            notFound()
-            return
-        }
-
-        questionInstance.delete flush: true
-
-        request.withFormat {
-            form {
-                flash.message = message(code: 'default.deleted.message', args: [message(code: 'Question.label', default: 'Question'), questionInstance.id])
-                redirect action: "index", method: "GET"
-            }
-            '*' { render status: NO_CONTENT }
-        }
+//    @Transactional
+    def delete(Question question) {
+        Questionnaire questionnaire=question.questionnaire
+        question.delete()
+        redirect(controller: 'questionnaire', action: 'show', params: [id:questionnaire.id])
     }
 
-    protected void notFound() {
+        protected void notFound() {
         request.withFormat {
             form {
-                flash.message = message(code: 'default.not.found.message', args: [message(code: 'questionInstance.label', default: 'Question'), params.id])
+                flash.message = message(code: 'default.not.found.message', args: [message(code: 'question.label', default: 'Question'), params.id])
                 redirect action: "index", method: "GET"
             }
             '*' { render status: NOT_FOUND }
@@ -97,42 +111,11 @@ class QuestionController {
     }
 
     @Transactional
-    def saveAndCreateNew(Question questionInstance) {
-        Question question = new Question()
-        question.properties = questionInstance.properties
-        saveQuestion(question)
-        redirect(action: 'create')
-    }
+    def saveAndCreateNew(QuestionCO questionCO) {
 
-    private static Question saveQuestion(Question questionInstance) {
-        if (questionInstance == null) {
-            notFound()
-            return
-        }
-
-        if (questionInstance.hasErrors()) {
-            respond questionInstance.errors, view: 'create'
-            return
-        }
-
-        questionInstance.save(flush: true)
-
-
+        Question question = questionService.saveQuestion(questionCO)
+        redirect(action: 'create', params: ['questionnaireId': questionCO.questionnaire.id])
     }
 
 
-    private static List<Option> saveOptions(Question questionInstance, List<Option> optionInstanceList) {
-        if (optionInstanceList == null) {
-            notFound()
-            return
-        }
-
-        for (Option optionInstance in optionInstanceList) {
-            if (optionInstance.hasErrors()) {
-                respond optionInstance.errors, view: 'create'
-                return
-            }
-            optionInstance.save(flush: true)
-        }
-    }
 }

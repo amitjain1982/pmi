@@ -21,8 +21,8 @@ class QuestionnaireControllerSpec extends Specification {
             controller.index()
 
         then:"The model is correct"
-            !model.questionnaireInstanceList
-            model.questionnaireInstanceCount == 0
+            !model.questionnaireList
+            model.questionnaireCount == 0
     }
 
     void "Test the create action returns the correct model"() {
@@ -30,7 +30,7 @@ class QuestionnaireControllerSpec extends Specification {
             controller.create()
 
         then:"The model is correctly created"
-            model.questionnaireInstance!= null
+            model.questionnaire!= null
     }
 
     void "Test the save action correctly persists an instance"() {
@@ -41,7 +41,7 @@ class QuestionnaireControllerSpec extends Specification {
             controller.save(questionnaire)
 
         then:"The create view is rendered again with the correct model"
-            model.questionnaireInstance!= null
+            model.questionnaire!= null
             view == 'create'
 
         when:"The save action is executed with a valid instance"
@@ -70,7 +70,7 @@ class QuestionnaireControllerSpec extends Specification {
             controller.show(questionnaire)
 
         then:"A model is populated containing the domain instance"
-            model.questionnaireInstance == questionnaire
+            model.questionnaire == questionnaire
     }
 
     void "Test that the edit action returns the correct model"() {
@@ -86,7 +86,7 @@ class QuestionnaireControllerSpec extends Specification {
             controller.edit(questionnaire)
 
         then:"A model is populated containing the domain instance"
-            model.questionnaireInstance == questionnaire
+            model.questionnaire == questionnaire
     }
 
     void "Test the update action performs an update on a valid domain instance"() {
@@ -106,7 +106,7 @@ class QuestionnaireControllerSpec extends Specification {
 
         then:"The edit view is rendered again with the invalid instance"
             view == 'edit'
-            model.questionnaireInstance == questionnaire
+            model.questionnaire == questionnaire
 
         when:"A valid domain instance is passed to the update action"
             response.reset()

@@ -26,7 +26,7 @@ class BootstrapService {
 
         addCollaborator(project)
 
-        addAnswerSheet(project, questionnaire)
+//        addAnswerSheet(project, questionnaire)
 
     }
 

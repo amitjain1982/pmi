@@ -12,11 +12,11 @@ class QuestionnaireController {
 
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
-        respond Questionnaire.list(params), model:[questionnaireInstanceCount: Questionnaire.count()]
+        respond Questionnaire.list(params), model:[questionnaireCount: Questionnaire.count()]
     }
 
-    def show(Questionnaire questionnaireInstance) {
-        respond questionnaireInstance
+    def show(Questionnaire questionnaire) {
+        respond questionnaire
     }
 
     def create() {
@@ -24,68 +24,68 @@ class QuestionnaireController {
     }
 
     @Transactional
-    def save(Questionnaire questionnaireInstance) {
-        if (questionnaireInstance == null) {
+    def save(Questionnaire questionnaire) {
+        if (questionnaire == null) {
             notFound()
             return
         }
 
-        if (questionnaireInstance.hasErrors()) {
-            respond questionnaireInstance.errors, view:'create'
+        if (questionnaire.hasErrors()) {
+            respond questionnaire.errors, view:'create'
             return
         }
 
-        questionnaireInstance.save flush:true
+        questionnaire.save flush:true
 
         request.withFormat {
             form {
-                flash.message = message(code: 'default.created.message', args: [message(code: 'questionnaireInstance.label', default: 'Questionnaire'), questionnaireInstance.id])
-                redirect questionnaireInstance
+                flash.message = message(code: 'default.created.message', args: [message(code: 'questionnaire.label', default: 'Questionnaire'), questionnaire.id])
+                redirect questionnaire
             }
-            '*' { respond questionnaireInstance, [status: CREATED] }
+            '*' { respond questionnaire, [status: CREATED] }
         }
     }
 
-    def edit(Questionnaire questionnaireInstance) {
-        respond questionnaireInstance
+    def edit(Questionnaire questionnaire) {
+        respond questionnaire
     }
 
     @Transactional
-    def update(Questionnaire questionnaireInstance) {
-        if (questionnaireInstance == null) {
+    def update(Questionnaire questionnaire) {
+        if (questionnaire == null) {
             notFound()
             return
         }
 
-        if (questionnaireInstance.hasErrors()) {
-            respond questionnaireInstance.errors, view:'edit'
+        if (questionnaire.hasErrors()) {
+            respond questionnaire.errors, view:'edit'
             return
         }
 
-        questionnaireInstance.save flush:true
+        questionnaire.save flush:true
 
         request.withFormat {
             form {
-                flash.message = message(code: 'default.updated.message', args: [message(code: 'Questionnaire.label', default: 'Questionnaire'), questionnaireInstance.id])
-                redirect questionnaireInstance
+                flash.message = message(code: 'default.updated.message', args: [message(code: 'Questionnaire.label', default: 'Questionnaire'), questionnaire.id])
+                redirect questionnaire
             }
-            '*'{ respond questionnaireInstance, [status: OK] }
+            '*'{ respond questionnaire, [status: OK] }
         }
     }
 
     @Transactional
-    def delete(Questionnaire questionnaireInstance) {
+    def delete(Questionnaire questionnaire) {
 
-        if (questionnaireInstance == null) {
+        if (questionnaire == null) {
             notFound()
             return
         }
 
-        questionnaireInstance.delete flush:true
+        questionnaire.delete flush:true
 
         request.withFormat {
             form {
-                flash.message = message(code: 'default.deleted.message', args: [message(code: 'Questionnaire.label', default: 'Questionnaire'), questionnaireInstance.id])
+                flash.message = message(code: 'default.deleted.message', args: [message(code: 'Questionnaire.label', default: 'Questionnaire'), questionnaire.id])
                 redirect action:"index", method:"GET"
             }
             '*'{ render status: NO_CONTENT }
@@ -95,7 +95,7 @@ class QuestionnaireController {
     protected void notFound() {
         request.withFormat {
             form {
-                flash.message = message(code: 'default.not.found.message', args: [message(code: 'questionnaireInstance.label', default: 'Questionnaire'), params.id])
+                flash.message = message(code: 'default.not.found.message', args: [message(code: 'questionnaire.label', default: 'Questionnaire'), params.id])
                 redirect action: "index", method: "GET"
             }
             '*'{ render status: NOT_FOUND }

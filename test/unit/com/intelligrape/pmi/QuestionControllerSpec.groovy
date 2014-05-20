@@ -30,7 +30,7 @@ class QuestionControllerSpec extends Specification {
             controller.create()
 
         then:"The model is correctly created"
-            model.questionInstance!= null
+            model.question!= null
     }
 
     void "Test the save action correctly persists an instance"() {
@@ -41,7 +41,7 @@ class QuestionControllerSpec extends Specification {
             controller.save(question)
 
         then:"The create view is rendered again with the correct model"
-            model.questionInstance!= null
+            model.question!= null
             view == 'create'
 
         when:"The save action is executed with a valid instance"
@@ -70,7 +70,7 @@ class QuestionControllerSpec extends Specification {
             controller.show(question)
 
         then:"A model is populated containing the domain instance"
-            model.questionInstance == question
+            model.question == question
     }
 
     void "Test that the edit action returns the correct model"() {
@@ -86,7 +86,7 @@ class QuestionControllerSpec extends Specification {
             controller.edit(question)
 
         then:"A model is populated containing the domain instance"
-            model.questionInstance == question
+            model.question == question
     }
 
     void "Test the update action performs an update on a valid domain instance"() {
@@ -106,7 +106,7 @@ class QuestionControllerSpec extends Specification {
 
         then:"The edit view is rendered again with the invalid instance"
             view == 'edit'
-            model.questionInstance == question
+            model.question == question
 
         when:"A valid domain instance is passed to the update action"
             response.reset()

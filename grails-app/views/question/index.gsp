@@ -39,27 +39,27 @@
 					</tr>
 				</thead>
 				<tbody>
-				<g:each in="${questionInstanceList}" status="i" var="questionInstance">
+				<g:each in="${questionList}" status="i" var=" question">
 					<tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
 					
-						<td><g:link action="show" id="${questionInstance.id}">${fieldValue(bean: questionInstance, field: "sequenceNumber")}</g:link></td>
+						<td><g:link action="show" id="${question.id}">${fieldValue(bean: question, field: "sequenceNumber")}</g:link></td>
 					
-						<td>${fieldValue(bean: questionInstance, field: "text")}</td>
+						<td>${fieldValue(bean: question, field: "text")}</td>
 					
-						<td>${fieldValue(bean: questionInstance, field: "detailedDescription")}</td>
+						<td>${fieldValue(bean: question, field: "detailedDescription")}</td>
 					
-						<td><g:formatDate date="${questionInstance.dateCreated}" /></td>
+						<td><g:formatDate date="${question.dateCreated}" /></td>
 					
-						<td><g:formatDate date="${questionInstance.lastUpdated}" /></td>
+						<td><g:formatDate date="${question.lastUpdated}" /></td>
 					
-						<td>${fieldValue(bean: questionInstance, field: "questionnaire")}</td>
+						<td>${fieldValue(bean: question, field: "questionnaire")}</td>
 					
 					</tr>
 				</g:each>
 				</tbody>
 			</table>
 			<div class="pagination">
-				<g:paginate total="${questionInstanceCount ?: 0}" />
+				<g:paginate total="${questionCount ?: 0}" />
 			</div>
 		</div>
 	</body>

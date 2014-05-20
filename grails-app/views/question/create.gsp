@@ -1,3 +1,4 @@
+<%@ page import="com.intelligrape.pmi.Question" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -22,36 +23,26 @@
     <g:if test="${flash.message}">
         <div class="message" role="status">${flash.message}</div>
     </g:if>
-    <g:hasErrors bean="${questionInstance}">
+    <g:hasErrors bean="${questionCO}">
         <ul class="errors" role="alert">
-            <g:eachError bean="${questionInstance}" var="error">
+            <g:eachError bean="${questionCO}" var="error">
                 <li <g:if test="${error in org.springframework.validation.FieldError}">data-field-id="${error.field}"</g:if>><g:message
                         error="${error}"/></li>
             </g:eachError>
         </ul>
     </g:hasErrors>
 
-    <g:each in="${optionInstanceList}" var="optionInstance">
-
-        <g:hasErrors bean="${optionInstance}">
-            <ul class="errors" role="alert">
-                <g:eachError bean="${optionInstance}" var="error">
-                    <li <g:if test="${error in org.springframework.validation.FieldError}">data-field-id="${error.field}"</g:if>><g:message
-                            error="${error}"/></li>
-                </g:eachError>
-            </ul>
-        </g:hasErrors>
-    </g:each>
-
-    <g:form url="[resource: [questionInstance , optionInstanceList], action: 'save']">
+    <g:form url="[resource: 'question', action: 'save']" params="[questionnaireId:questionnaire.id]">
         <fieldset class="form">
-            <g:render template="form"/>
+            <g:render template="form" model="[questionCO: questionCO, questionnaire: questionnaire]"/>
         </fieldset>
         <fieldset class="buttons">
             <g:submitButton name="create" class="save"
                             value="${message(code: 'default.button.create.label', default: 'Create')}"/>
+
             <g:actionSubmit name="saveAndCreateNew" class="save" action="saveAndCreateNew"
-                            value="${message(code: 'default.button.saveAndCreateNew.label', default: 'Create')}"/>
+                            value="${message(code: 'default.button.createAndAddNew.label', default: 'Create')}"/>
+
         </fieldset>
 
     </g:form>

@@ -23,75 +23,75 @@
 			</g:if>
 			<ol class="property-list question">
 			
-				<g:if test="${questionInstance?.sequenceNumber}">
+				<g:if test="${question?.sequenceNumber}">
 				<li class="fieldcontain">
 					<span id="sequenceNumber-label" class="property-label"><g:message code="question.sequenceNumber.label" default="Sequence Number" /></span>
 					
-						<span class="property-value" aria-labelledby="sequenceNumber-label"><g:fieldValue bean="${questionInstance}" field="sequenceNumber"/></span>
+						<span class="property-value" aria-labelledby="sequenceNumber-label"><g:fieldValue bean="${question}" field="sequenceNumber"/></span>
 					
 				</li>
 				</g:if>
 			
-				<g:if test="${questionInstance?.text}">
+				<g:if test="${question?.text}">
 				<li class="fieldcontain">
 					<span id="text-label" class="property-label"><g:message code="question.text.label" default="Text" /></span>
 					
-						<span class="property-value" aria-labelledby="text-label"><g:fieldValue bean="${questionInstance}" field="text"/></span>
+						<span class="property-value" aria-labelledby="text-label"><g:fieldValue bean="${question}" field="text"/></span>
 					
 				</li>
 				</g:if>
 			
-				<g:if test="${questionInstance?.detailedDescription}">
+				<g:if test="${question?.detailedDescription}">
 				<li class="fieldcontain">
 					<span id="detailedDescription-label" class="property-label"><g:message code="question.detailedDescription.label" default="Detailed Description" /></span>
 					
-						<span class="property-value" aria-labelledby="detailedDescription-label"><g:fieldValue bean="${questionInstance}" field="detailedDescription"/></span>
+						<span class="property-value" aria-labelledby="detailedDescription-label"><g:fieldValue bean="${question}" field="detailedDescription"/></span>
 					
 				</li>
 				</g:if>
 			
-				<g:if test="${questionInstance?.options}">
+				<g:if test="${question?.options}">
 				<li class="fieldcontain">
 					<span id="options-label" class="property-label"><g:message code="question.options.label" default="Options" /></span>
 					
-						<g:each in="${questionInstance.options}" var="o">
+						<g:each in="${question.options}" var="o">
 						<span class="property-value" aria-labelledby="options-label"><g:link controller="option" action="show" id="${o.id}">${o?.encodeAsHTML()}</g:link></span>
 						</g:each>
 					
 				</li>
 				</g:if>
 			
-				<g:if test="${questionInstance?.dateCreated}">
+				<g:if test="${question?.dateCreated}">
 				<li class="fieldcontain">
 					<span id="dateCreated-label" class="property-label"><g:message code="question.dateCreated.label" default="Date Created" /></span>
 					
-						<span class="property-value" aria-labelledby="dateCreated-label"><g:formatDate date="${questionInstance?.dateCreated}" /></span>
+						<span class="property-value" aria-labelledby="dateCreated-label"><g:formatDate date="${question?.dateCreated}" /></span>
 					
 				</li>
 				</g:if>
 			
-				<g:if test="${questionInstance?.lastUpdated}">
+				<g:if test="${question?.lastUpdated}">
 				<li class="fieldcontain">
 					<span id="lastUpdated-label" class="property-label"><g:message code="question.lastUpdated.label" default="Last Updated" /></span>
 					
-						<span class="property-value" aria-labelledby="lastUpdated-label"><g:formatDate date="${questionInstance?.lastUpdated}" /></span>
+						<span class="property-value" aria-labelledby="lastUpdated-label"><g:formatDate date="${question?.lastUpdated}" /></span>
 					
 				</li>
 				</g:if>
 			
-				<g:if test="${questionInstance?.questionnaire}">
+				<g:if test="${question?.questionnaire}">
 				<li class="fieldcontain">
 					<span id="questionnaire-label" class="property-label"><g:message code="question.questionnaire.label" default="Questionnaire" /></span>
 					
-						<span class="property-value" aria-labelledby="questionnaire-label"><g:link controller="questionnaire" action="show" id="${questionInstance?.questionnaire?.id}">${questionInstance?.questionnaire?.encodeAsHTML()}</g:link></span>
+						<span class="property-value" aria-labelledby="questionnaire-label"><g:link controller="questionnaire" action="show" id="${question?.questionnaire?.id}">${question?.questionnaire?.encodeAsHTML()}</g:link></span>
 					
 				</li>
 				</g:if>
 			
 			</ol>
-			<g:form url="[resource:questionInstance, action:'delete']" method="DELETE">
+			<g:form url="[resource:question, action:'delete']" method="DELETE">
 				<fieldset class="buttons">
-					<g:link class="edit" action="edit" resource="${questionInstance}"><g:message code="default.button.edit.label" default="Edit" /></g:link>
+					<g:link class="edit" action="edit" resource="${question}"><g:message code="default.button.edit.label" default="Edit" /></g:link>
 					<g:actionSubmit class="delete" action="delete" value="${message(code: 'default.button.delete.label', default: 'Delete')}" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" />
 				</fieldset>
 			</g:form>

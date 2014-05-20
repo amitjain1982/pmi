@@ -1,5 +1,8 @@
 package com.intelligrape.pmi
 
+import com.intelligrape.pmi.co.OptionCO
+import com.intelligrape.pmi.co.QuestionCO
+
 
 class Question {
 
@@ -18,6 +21,19 @@ class Question {
         detailedDescription(nullable: true)
         options(minSize: 2)
     }
+
+
+
+    public Question(QuestionCO questionCO) {
+        this.properties = questionCO.properties
+
+    }
+
+
+
+
+
+
 
 
 }
