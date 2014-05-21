@@ -46,6 +46,18 @@ class QuestionnaireController {
         }
     }
 
+
+    def submitSurvey(){
+
+        AnswerSheet answerSheet=new AnswerSheet()
+        render "Survey submitted successfully\n"
+
+    }
+
+    def survey(){
+        render(view:'survey',model:[questionnaire:Questionnaire.get('1')])
+    }
+
     def edit(Questionnaire questionnaire) {
         respond questionnaire
     }
