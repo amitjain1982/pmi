@@ -35,7 +35,7 @@ public class QuestionCO {
     static constraints = {
         sequenceNumber(blank: false)
         text(blank: false)
-        detailedDescription(blank: true)
+        detailedDescription(nullable: true, blank: true)
         optionCOs(minSize: 2)
     }
 

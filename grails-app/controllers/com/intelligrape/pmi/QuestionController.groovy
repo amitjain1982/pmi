@@ -7,7 +7,6 @@ import com.sun.jndi.url.iiopname.iiopnameURLContextFactory
 import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
 
-@Transactional
 class QuestionController {
 
     def questionService

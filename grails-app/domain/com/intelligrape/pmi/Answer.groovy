@@ -1,5 +1,7 @@
 package com.intelligrape.pmi
 
+import com.intelligrape.pmi.co.AnswerCO
+
 
 class Answer {
 
@@ -15,6 +17,17 @@ class Answer {
 
     static constraints = {
         comment(nullable: true,maxSize:100)
+    }
+
+    Answer(){}
+
+    public Answer(AnswerCO answerCO)
+    {
+        this.comment=answerCO.comment
+        this.question=answerCO.question
+        this.optionSelected=answerCO.optionSelected
+
+
     }
 
 }

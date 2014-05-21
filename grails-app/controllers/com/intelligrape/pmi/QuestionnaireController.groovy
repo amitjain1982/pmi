@@ -1,11 +1,10 @@
 package com.intelligrape.pmi
 
-
+import com.intelligrape.pmi.co.AnswerSheetCO
 
 import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
 
-@Transactional(readOnly = true)
 class QuestionnaireController {
 
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
@@ -46,16 +45,35 @@ class QuestionnaireController {
         }
     }
 
+    @Transactional
+    def submitSurvey(AnswerSheetCO answerSheetCO){
+        answerSheetCO.dateAttempted = new Date()
+        List<Answer> answers=[]
 
-    def submitSurvey(){
+        AnswerSheet answerSheet=new AnswerSheet(answerSheetCO)
 
-        AnswerSheet answerSheet=new AnswerSheet()
-        render "Survey submitted successfully\n"
+        answerSheet.answers=answers
+        answerSheet.attemptedBy=Collabortaor.get('1')
+
+        answerSheetCO.answerCOs?.each {answerCO->
+            Answer answer = new Answer(answerCO)
+            answerSheet.addToAnswers(answer)
+        }
+        answerSheet.totalScore=calculateScore(answerSheet)
+            answerSheet.save()
+            render "Survey compeleted.PMI for your project is ${answerSheet.totalScore}"
 
     }
 
+
+    Double calculateScore(AnswerSheet answerSheet) {
+        (answerSheet?.answers*.optionSelected*.score?.sum()  ?: 0) as Double
+    }
+
+
+
     def survey(){
-        render(view:'survey',model:[questionnaire:Questionnaire.get('1')])
+        render(view:'quesionnaire',model:[questionnaire:Questionnaire.get('1')])
     }
 
     def edit(Questionnaire questionnaire) {

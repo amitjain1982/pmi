@@ -5,7 +5,6 @@ package com.intelligrape.pmi
 import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
 
-@Transactional(readOnly = true)
 class OptionController {
 
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]

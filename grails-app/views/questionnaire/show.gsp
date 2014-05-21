@@ -144,6 +144,10 @@
                                                                   params="['questionnaireId': questionnaire?.id]">${message(code: 'default.add.label', args: [message(code: 'question.label', default: 'Question')])}</g:link>
         </li>
 
+        <li>
+        <g:link name="preview"  controller='questionnaire' action='survey'>Preview</g:link>
+        </li>
+
     </ol>
     <g:form url="[resource: questionnaire, action: 'delete']" method="DELETE">
         <fieldset class="buttons">
