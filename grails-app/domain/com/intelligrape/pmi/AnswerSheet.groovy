@@ -27,9 +27,18 @@ class AnswerSheet {
     static hasMany = [answers: Answer]
     static belongsTo = [questionnaire: Questionnaire]
 
-    static constraints = { comment(nullable: true, maxSize: 200)
+    static constraints = { comment(nullable: true, maxSize: 256)
     totalScore(nullable: true)
     }
+
+
+
+    public Double calculateScore() {
+        (this?.answers*.optionSelected*.score?.sum()  ?: 0) as Double
+    }
+
+
+
 
 
 }

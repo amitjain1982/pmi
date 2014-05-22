@@ -9,7 +9,7 @@
 
 <h2 style="text-align: center">${questionnaire.title}</h2>
 
-<g:form name="survey" action="submitSurvey">
+<g:form id="surveyForm" controller="AnswerSheet" action="submitSurvey">
     <g:hiddenField name="project.id" value="${Project.get('1').id}"/>
     <g:hiddenField name="questionnaire.id" value="${questionnaire.id}"/>
 
@@ -23,15 +23,46 @@
 
     <br>
     <label for="comment">Additional Comments</label>
-    <g:textField name="comment" maxlength="200"/>
+    <g:textField name="comment" maxlength="256"/>
 
     <br>
     <g:hiddenField name="status" value="${com.intelligrape.pmi.enums.AnswerSheetStatus.COMPELETED}"/>
 
     <br>
-    <g:submitButton name="Submit" value="Submit"/>
 
+    <div id="buttonDiv">
+        <span><input type="button" name="submit" value="Submit" onclick="requiredAllAnswers()"/></span>
+        <span><input type="button" name="reset" value="Reset" onclick="resetForm()"/></span>
+    </div>
 </g:form>
-
-</body>
+</body>o-
 </html>
+
+
+<script>
+
+
+    function resetForm() {
+
+        $('form input').val('')
+
+    }
+
+
+    function requiredAllAnswers() {
+        var s = $('#surveyForm input[type=radio]:checked').length
+        alert(s)
+        %{--if($('form input[type=radio]').size()!=${questionnaire.questions.size()})--}%
+        %{--alert("All fields are required");--}%
+        $('form').submit()
+//        return false
+
+    }
+
+
+
+
+
+
+
+</script>

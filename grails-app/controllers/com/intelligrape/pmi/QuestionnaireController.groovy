@@ -45,32 +45,6 @@ class QuestionnaireController {
         }
     }
 
-    @Transactional
-    def submitSurvey(AnswerSheetCO answerSheetCO){
-        answerSheetCO.dateAttempted = new Date()
-        List<Answer> answers=[]
-
-        AnswerSheet answerSheet=new AnswerSheet(answerSheetCO)
-
-        answerSheet.answers=answers
-        answerSheet.attemptedBy=Collabortaor.get('1')
-
-        answerSheetCO.answerCOs?.each {answerCO->
-            Answer answer = new Answer(answerCO)
-            answerSheet.addToAnswers(answer)
-        }
-        answerSheet.totalScore=calculateScore(answerSheet)
-            answerSheet.save()
-            render "Survey compeleted.PMI for your project is ${answerSheet.totalScore}"
-
-    }
-
-
-    Double calculateScore(AnswerSheet answerSheet) {
-        (answerSheet?.answers*.optionSelected*.score?.sum()  ?: 0) as Double
-    }
-
-
 
     def survey(){
         render(view:'quesionnaire',model:[questionnaire:Questionnaire.get('1')])
