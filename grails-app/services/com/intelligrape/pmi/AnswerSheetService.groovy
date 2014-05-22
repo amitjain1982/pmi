@@ -7,7 +7,6 @@ import grails.transaction.Transactional
 class AnswerSheetService {
 
     def serviceMethod() {
-
     }
 
     @Transactional
@@ -17,7 +16,7 @@ class AnswerSheetService {
 
         AnswerSheet answerSheet=new AnswerSheet(answerSheetCO)
 
-        answerSheet.answers=answers
+//        answerSheet.answers=answers
         answerSheet.attemptedBy=Collabortaor.get('1')
 
         answerSheetCO.answerCOs?.each {answerCO->
@@ -25,30 +24,9 @@ class AnswerSheetService {
 
             answerSheet.addToAnswers(answer)
         }
-        answerSheet.totalScore=calculateScore(answerSheet)
+        answerSheet.totalScore = answerSheet.calculateScore()
         answerSheet.save()
         return answerSheet
 
     }
-
-
-
-
-
-    /*
-    *   answerSheetCO.dateAttempted = new Date()
-        List<Answer> answers=[]
-
-        AnswerSheet answerSheet=new AnswerSheet(answerSheetCO)
-
-        answerSheet.answers=answers
-        answerSheet.attemptedBy=Collabortaor.get('1')
-
-        answerSheet.totalScore= 1//calculateScore(answerSheet)
-        answerSheet.save()
-        answerSheetCO.answerCOs?.each {answerCO->
-            Answer answer = new Answer(answerCO)
-            answer.answerSheet = answerSheet
-            answer.save()
-//            answerSheet.addToAnswers(answer)*/
 }

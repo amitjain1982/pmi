@@ -108,7 +108,7 @@ class AnswerSheetController {
    def submitSurvey(AnswerSheetCO answerSheetCO)
    {
        AnswerSheet answerSheet=answerSheetService.submitSurveyAndCreateAnswerSheet(answerSheetCO)
-       render "Total Score is"+answerSheetService.calculateScore(answerSheet)
+       render "Total Score is"+answerSheet.totalScore
 
    }
 
