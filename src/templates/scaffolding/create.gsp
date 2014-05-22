@@ -6,12 +6,16 @@
 		<title><g:message code="default.create.label" args="[entityName]" /></title>
 	</head>
 	<body>
-		<div class="nav" role="navigation">
-			<ul>
-				<li><a class="home" href="\${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
-				<li><g:link class="list" action="index"><g:message code="default.list.label" args="[entityName]" /></g:link></li>
-			</ul>
-		</div>
+    <br/>
+    <div class="pageInfo" role="navigation">
+        <nav class="span12 ">
+            <a class="home" href="\${createLink(uri: '/')}"><g:message code="default.home.label"/></a> |
+        <g:link class="list" action="index"><g:message code="default.list.label" args="[entityName]" /></g:link> |
+        </nav>
+    </div>
+    <br/>
+    <h1><g:message code="default.create.label" args="[entityName]" /></h1>
+    <br/>
 		<div>
 			<div class="page-title"><g:message code="default.create.label" args="[entityName]" /></div>
 			<g:if test="\${flash.message}">
@@ -31,7 +35,7 @@
                     <g:render template="form"/>
                 </div>
                 <div class="form-actions text-right">
-                    <g:submitButton name="create" class="save" value="\${message(code: 'default.button.create.label', default: 'Create')}" />
+                    <g:submitButton name="create" class="save btn btn-primary" value="\${message(code: 'default.button.create.label', default: 'Create')}" />
                 </div>
             </div>
 			</g:form>

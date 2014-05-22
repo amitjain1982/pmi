@@ -8,20 +8,22 @@
 		<title><g:message code="default.list.label" args="[entityName]" /></title>
 	</head>
 	<body>
-		<div class="nav" role="navigation">
-			<ul>
-				<li><a class="home" href="\${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
-				<li><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></li>
-			</ul>
-		</div>
+    <br/>
+    <div class="pageInfo" role="navigation">
+        <nav class="span12 ">
+            <a class="home" href="\${createLink(uri: '/')}"><g:message code="default.home.label"/></a> |
+        <g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link>
+        </nav>
+    </div>
+    <br/>
     <h1><g:message code="default.list.label" args="[entityName]" /></h1>
+    <br/>
+
     <g:if test="\${flash.message}">
         <div class="message" role="status">\${flash.message}</div>
     </g:if>
 
-    <div class="panel panel-default"><div class="panel-heading"><h6 class="panel-title"><i
-            class="icon-file"></i> Bordered datatable inside panel</h6></div>
-
+    <div class="panel panel-default">
         <div class="datatable"><divrole="grid">
             <div class="datatable-header">
             </div>

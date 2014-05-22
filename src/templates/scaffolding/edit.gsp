@@ -7,13 +7,17 @@
 		<title><g:message code="default.edit.label" args="[entityName]" /></title>
 	</head>
 	<body>
-		<div class="nav" role="navigation">
-			<ul>
-				<li><a class="home" href="\${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
-				<li><g:link class="list" action="index"><g:message code="default.list.label" args="[entityName]" /></g:link></li>
-				<li><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></li>
-			</ul>
-		</div>
+    <br/>
+    <div class="pageInfo" role="navigation">
+        <nav class="span12 ">
+            <a class="home" href="\${createLink(uri: '/')}"><g:message code="default.home.label"/></a> |
+            <g:link class="list" action="index"><g:message code="default.list.label" args="[entityName]" /></g:link> |
+        <g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link>
+        </nav>
+    </div>
+    <br/>
+    <h1><g:message code="default.edit.label" args="[entityName]" /></h1>
+    <br/>
 		<div>
             <div class="page-title"><g:message code="default.edit.label" args="[entityName]" /></div>
 			<g:if test="\${flash.message}">
@@ -34,7 +38,7 @@
 					<g:render template="form"/>
                     </div>
                 <div class="form-actions text-right">
-					<g:actionSubmit class="save" action="update btn btn-primary" value="\${message(code: 'default.button.update.label', default: 'Update')}" />
+					<g:actionSubmit class="save btn btn-primary" action="update btn btn-primary" value="\${message(code: 'default.button.update.label', default: 'Update')}" />
 				</div>
                 </div>
 			</g:form>
