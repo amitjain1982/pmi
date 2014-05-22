@@ -26,7 +26,7 @@
 <div id="page-container" class="page-container">
     <g:render template="/layouts/leftMenu"/>
     <div class="page-content">
-    <g:render template="/layouts/pageHeader"/>
+    %{--<g:render template="/layouts/pageHeader"/>--}%
         <g:layoutBody/>
         <g:render template="/layouts/footer"/>
     </div>
