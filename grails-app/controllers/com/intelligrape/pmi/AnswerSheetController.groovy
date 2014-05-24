@@ -105,15 +105,11 @@ class AnswerSheetController {
     }
 
 
-   def submitSurvey(AnswerSheetCO answerSheetCO)
-   {
-       AnswerSheet answerSheet=answerSheetService.submitSurveyAndCreateAnswerSheet(answerSheetCO)
-       render "Total Score is"+answerSheet.totalScore
-
-   }
-
-
-
+    def submitSurvey(AnswerSheetCO answerSheetCO) {
+        AnswerSheet answerSheet = answerSheetService.submitSurveyAndCreateAnswerSheet(answerSheetCO)
+//        render "Total Score is" + answerSheet.totalScore
+        render(view: '/questionnaire/questionnaireFeedback', model: ['answerSheet' : answerSheet])
+    }
 
 
 }

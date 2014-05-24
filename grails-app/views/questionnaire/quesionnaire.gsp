@@ -2,12 +2,20 @@
 <html>
 <head>
     <title>Project Maturity Index Survey</title>
+    <meta name="layout" content="main">
+    <r:require module="londinium"/>
+    <r:layoutResources/>
 </head>
 
 <body>
 <h2 style="text-align: center">Project Maturity Index Survey</h2>
 
 <h2 style="text-align: center">${questionnaire.title}</h2>
+
+<div id="errorDiv">
+
+</div>
+
 
 <g:form id="surveyForm" controller="AnswerSheet" action="submitSurvey">
     <g:hiddenField name="project.id" value="${Project.get('1').id}"/>
@@ -31,38 +39,39 @@
     <br>
 
     <div id="buttonDiv">
-        <span><input type="button" name="submit" value="Submit" onclick="requiredAllAnswers()"/></span>
+        <span><input type="submit" name="submit" value="Submit" onclick="return requiredAllAnswers()"/></span>
         <span><input type="button" name="reset" value="Reset" onclick="resetForm()"/></span>
     </div>
 </g:form>
-</body>o-
-</html>
-
+<r:layoutResources/>
 
 <script>
 
 
+    $(document).ready()
+    {
+        resetForm()
+    }
+
+
     function resetForm() {
-
-        $('form input').val('')
-
+        $('input[type=text]').val('');
+        $('input[type=radio]').prop("checked", false);
     }
 
 
     function requiredAllAnswers() {
-        var s = $('#surveyForm input[type=radio]:checked').length
-        alert(s)
-        %{--if($('form input[type=radio]').size()!=${questionnaire.questions.size()})--}%
-        %{--alert("All fields are required");--}%
-        $('form').submit()
-//        return false
-
+        var noOfQuestionsAnswered = $('input[type=radio]:checked').length;
+        if (noOfQuestionsAnswered !=${questionnaire.questions.size()}) {
+            alert("Please answer all the questions");
+            return false
+        }
+        else
+            return true
     }
 
 
-
-
-
-
-
 </script>
+</body>
+</html>
+

@@ -1,10 +1,10 @@
 
-<%@ page import="com.intelligrape.pmi.Option" %>
+<%@ page import="com.intelligrape.pmi.User" %>
 <!DOCTYPE html>
 <html>
 	<head>
 		<meta name="layout" content="main">
-		<g:set var="entityName" value="${message(code: 'option.label', default: 'Option')}" />
+		<g:set var="entityName" value="${message(code: 'user.label', default: 'User')}" />
 		<title><g:message code="default.show.label" args="[entityName]" /></title>
 	</head>
 	<body>
@@ -28,67 +28,80 @@
                         <table class="table">
 
                             
-				<g:if test="${option?.score}">
+				<g:if test="${user?.username}">
                     <tr>
-                    <th><g:message code="option.score.label" default="Score" /></th>
+                    <th><g:message code="user.username.label" default="Username" /></th>
                     <td>
 					
-						<g:fieldValue bean="${option}" field="score"/>
+						<g:fieldValue bean="${user}" field="username"/>
 					
                     </td>
                     </tr>
 				</g:if>
 			
-				<g:if test="${option?.sequenceNumber}">
+				<g:if test="${user?.password}">
                     <tr>
-                    <th><g:message code="option.sequenceNumber.label" default="Sequence Number" /></th>
+                    <th><g:message code="user.password.label" default="Password" /></th>
                     <td>
 					
-						<g:fieldValue bean="${option}" field="sequenceNumber"/>
+						<g:fieldValue bean="${user}" field="password"/>
 					
                     </td>
                     </tr>
 				</g:if>
 			
-				<g:if test="${option?.dateCreated}">
+				<g:if test="${user?.accountExpired}">
                     <tr>
-                    <th><g:message code="option.dateCreated.label" default="Date Created" /></th>
+                    <th><g:message code="user.accountExpired.label" default="Account Expired" /></th>
                     <td>
 					
-						<g:formatDate date="${option?.dateCreated}" />
+						<g:formatBoolean boolean="${user?.accountExpired}" />
 					
                     </td>
                     </tr>
 				</g:if>
 			
-				<g:if test="${option?.lastUpdated}">
+				<g:if test="${user?.accountLocked}">
                     <tr>
-                    <th><g:message code="option.lastUpdated.label" default="Last Updated" /></th>
+                    <th><g:message code="user.accountLocked.label" default="Account Locked" /></th>
                     <td>
 					
-						<g:formatDate date="${option?.lastUpdated}" />
+						<g:formatBoolean boolean="${user?.accountLocked}" />
 					
                     </td>
                     </tr>
 				</g:if>
 			
-				<g:if test="${option?.name}">
+				<g:if test="${user?.enabled}">
                     <tr>
-                    <th><g:message code="option.name.label" default="Name" /></th>
+                    <th><g:message code="user.enabled.label" default="Enabled" /></th>
                     <td>
 					
-						<g:fieldValue bean="${option}" field="name"/>
+						<g:formatBoolean boolean="${user?.enabled}" />
 					
                     </td>
                     </tr>
 				</g:if>
 			
-				<g:if test="${option?.question}">
+				<g:if test="${user?.oauthIds}">
                     <tr>
-                    <th><g:message code="option.question.label" default="Question" /></th>
+                    <th><g:message code="user.oauthIds.label" default="Oauth Ids" /></th>
                     <td>
 					
-						 <g:link controller="question" action="show" id="${option?.question?.id}">${option?.question?.encodeAsHTML()}</g:link>
+						<g:each in="${user.oauthIds}" var="o">
+						  <g:link controller="OAuthID" action="show" id="${o.id}">${o?.encodeAsHTML()}</g:link>
+						</g:each>
+					
+                    </td>
+                    </tr>
+				</g:if>
+			
+				<g:if test="${user?.passwordExpired}">
+                    <tr>
+                    <th><g:message code="user.passwordExpired.label" default="Password Expired" /></th>
+                    <td>
+					
+						<g:formatBoolean boolean="${user?.passwordExpired}" />
 					
                     </td>
                     </tr>
@@ -97,8 +110,8 @@
                  </table>
                 </div>
                 <div class="form-actions text-right">
-                    <g:form url="[resource:option, action:'delete']" method="DELETE">
-                            <g:link class="edit btn btn-primary" action="edit" resource="${option}"><g:message code="default.button.edit.label" default="Edit" /></g:link>
+                    <g:form url="[resource:user, action:'delete']" method="DELETE">
+                            <g:link class="edit btn btn-primary" action="edit" resource="${user}"><g:message code="default.button.edit.label" default="Edit" /></g:link>
                             <g:actionSubmit class="delete btn btn-danger" action="delete" value="${message(code: 'default.button.delete.label', default: 'Delete')}" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" />
                     </g:form>
                 </div>

@@ -11,7 +11,6 @@
     <br/>
     <div class="pageInfo" role="navigation">
         <nav class="span12 ">
-            <a class="home" href="\${createLink(uri: '/')}"><g:message code="default.home.label"/></a> |
         <g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link>
         </nav>
     </div>

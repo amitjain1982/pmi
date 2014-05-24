@@ -16,14 +16,16 @@ class QuestionController {
 
     def create() {
 
-        Questionnaire questionnaire = Questionnaire.findById(params.long('questionnaireId'))
+        Questionnaire questionnaire=Questionnaire.findById(params.long('questionnaireId'))
         QuestionCO questionCO = new QuestionCO()
+        questionCO.questionnaire=questionnaire
         questionCO.optionCOs = [new OptionCO(), new OptionCO()]
         render(view: 'create', model: [questionCO: questionCO, questionnaire: questionnaire])
     }
 
     @Transactional
     def save(QuestionCO questionCO) {
+        println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"+questionCO.properties)
 
         Question question = questionService.saveQuestion(questionCO)
 
@@ -39,13 +41,13 @@ class QuestionController {
     }
 
     def edit(Question question) {
-        println "question " + question
         QuestionCO questionCO = new QuestionCO(question)
-        render(view: 'edit', model: [questionCO: questionCO])
+        render(view: 'edit', model: [questionCO: questionCO,questionnaire: question.questionnaire])
     }
 
     @Transactional
     def update(QuestionCO questionCO) {
+        println "Updating question "
         if (questionCO == null) {
             notFound()
             return

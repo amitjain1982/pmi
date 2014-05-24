@@ -4,8 +4,8 @@ modules = {
     }
 
     londinium {
-        resource url: 'http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js'
-        resource url: 'http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/jquery-ui.min.js'
+        resource url: 'http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js', disposition: 'head'
+        resource url: 'http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/jquery-ui.min.js', disposition: 'head'
 
         resource url: '/londinium/js/plugins/interface/datatables.min.js'
         resource url: '/londinium/js/plugins/interface/daterangepicker.js'

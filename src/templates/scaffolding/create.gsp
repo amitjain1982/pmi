@@ -9,8 +9,7 @@
     <br/>
     <div class="pageInfo" role="navigation">
         <nav class="span12 ">
-            <a class="home" href="\${createLink(uri: '/')}"><g:message code="default.home.label"/></a> |
-        <g:link class="list" action="index"><g:message code="default.list.label" args="[entityName]" /></g:link> |
+        <g:link class="list" action="index"><g:message code="default.list.label" args="[entityName]" /></g:link>
         </nav>
     </div>
     <br/>
