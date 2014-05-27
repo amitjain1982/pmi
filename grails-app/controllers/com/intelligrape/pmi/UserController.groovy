@@ -1,6 +1,6 @@
 package com.intelligrape.pmi
 
-
+import grails.plugin.springsecurity.annotation.Secured
 
 import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
@@ -9,21 +9,26 @@ class UserController {
 
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
+    @Secured(['ROLE_ADMIN'])
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
         respond User.list(params), model: [userCount: User.count()]
     }
 
+    @Secured(['ROLE_ADMIN'])
     def show(User user) {
         respond user
     }
 
+    @Secured(['ROLE_ADMIN'])
     def create() {
         respond new User(params)
     }
 
     @Transactional
     def save(User user) {
+
+
         if (user == null) {
             notFound()
             return
@@ -34,17 +39,29 @@ class UserController {
             return
         }
 
-        user.save flush: true
 
-        request.withFormat {
-            form {
-                flash.message = message(code: 'default.created.message', args: [message(code: 'user.label', default: 'User'), user.id])
-                redirect user
+        String confirmPassword = params['confirmPassword']
+
+        if (confirmPassword != user.password) {
+            flash.passwordConfirmMessage = message(code: 'user.create.passwordConfirmMismatchMessage')
+            render(view: 'create', model: ['username': user.username])
+        } else {
+
+            user.save flush: true
+            UserRole userRole=new UserRole(user:user,role: params.role)
+            userRole.save()
+            request.withFormat {
+                form {
+                    flash.message = message(code: 'default.created.message', args: [message(code: 'user.label', default: 'User'), user.id])
+                    redirect user
+                }
+                '*' { respond user, [status: CREATED] }
             }
-            '*' { respond user, [status: CREATED] }
+
         }
     }
 
+    @Secured(['ROLE_ADMIN'])
     def edit(User user) {
         respond user
     }
@@ -61,18 +78,28 @@ class UserController {
             return
         }
 
-        user.save flush: true
+        String confirmPassword = params['confirmPassword']
 
-        request.withFormat {
-            form {
-                flash.message = message(code: 'default.updated.message', args: [message(code: 'User.label', default: 'User'), user.id])
-                redirect user
+        if (confirmPassword != user.password) {
+            flash.passwordConfirmMessage = message(code: 'user.create.passwordConfirmMismatchMessage')
+            render(view: 'create', model: ['username': user.username])
+        } else {
+
+            user.save flush: true
+            UserRole userRole=new UserRole(user:user,role: params.role)
+            userRole.save()
+
+            request.withFormat {
+                form {
+                    flash.message = message(code: 'default.updated.message', args: [message(code: 'user.label', default: 'User'), user.id])
+                    redirect user
+                }
+                '*' { respond user, [status: OK] }
             }
-            '*' { respond user, [status: OK] }
         }
     }
 
-    @Transactional
+    @Transactional@Secured(['ROLE_ADMIN'])
     def delete(User user) {
 
         if (user == null) {
@@ -84,7 +111,7 @@ class UserController {
 
         request.withFormat {
             form {
-                flash.message = message(code: 'default.deleted.message', args: [message(code: 'User.label', default: 'User'), user.id])
+                flash.message = message(code: 'default.deleted.message', args: [message(code: 'user.label', default: 'User'), user.id])
                 redirect action: "index", method: "GET"
             }
             '*' { render status: NO_CONTENT }

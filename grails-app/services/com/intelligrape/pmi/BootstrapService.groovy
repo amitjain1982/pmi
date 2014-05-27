@@ -31,7 +31,7 @@ class BootstrapService {
 
 
     User createAdmin(Role role) {
-        User admin = new User(username: "amit@intelligrape.com", password: "temp")
+        User admin = new User(username: "amit@intelligrape.com", password: "igdefault")
         admin.save()
         UserRole adminRole = new UserRole(user: admin, role: role)
         adminRole.save()

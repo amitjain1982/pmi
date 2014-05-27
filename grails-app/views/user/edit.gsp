@@ -29,6 +29,7 @@
 				</g:eachError>
 			</ul>
 			</g:hasErrors>
+            <label class="text-danger">  ${flash.passwordConfirmMessage}</label>
 			<g:form url="[resource:user, action:'update']" method="PUT"  class="form-horizontal form-bordered">
             <div class="panel panel-default">
                 <div class="panel-heading"></div>

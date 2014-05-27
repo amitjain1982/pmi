@@ -9,6 +9,9 @@ class UserRole implements Serializable {
 	User user
 	Role role
 
+
+    static belongsTo = [user:User]
+
 	boolean equals(other) {
 		if (!(other instanceof UserRole)) {
 			return false
