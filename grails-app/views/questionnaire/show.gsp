@@ -127,10 +127,9 @@
                             <th><g:message code="questionnaire.questions.label" default="Questions"/></th>
                             <td>
                                 <table class="table-condensed">
-                                <g:each in="${questionnaire.questions.sort{it.sequenceNumber}}" var="question">
-                                    <g:render template="/question/displayQuestion" model="[question:question]"/>
-
-                                </g:each>
+                                    <g:each in="${questionnaire.questions.sort { it.sequenceNumber }}" var="question">
+                                        <g:render template="/question/displayQuestion" model="[question: question]"/>
+                                    </g:each>
                                 </table>
 
                             </td>
@@ -139,7 +138,8 @@
 
                     <tr>
                         <td></td>
-                        <td><g:link name="addQuestionLink" controller="question" action="create"  params="['questionnaireId': questionnaire?.id]"> Add Question</g:link></td>
+                        <td><g:link name="addQuestionLink" controller="question" action="create"
+                                    params="['questionnaireId': questionnaire?.id]">Add Question</g:link></td>
 
                     </tr>
 
@@ -148,9 +148,11 @@
 
             <div class="form-actions text-right">
                 <g:form url="[resource: questionnaire, action: 'delete']" method="DELETE">
-                    <g:link class="edit form-control tip btn btn-primary data-original-title="Delete" action="edit" params="['questionnaire.id':questionnaire.id]" resource="${questionnaire}"><g:message
+                    <g:link class="edit tip btn btn-primary" resource="${questionnaire}" action="edit"
+                            params="['questionnaire.id': questionnaire.id]"><g:message
                             code="default.button.edit.label" default="Edit"/></g:link>
-                    <g:actionSubmit class="delete form-control tip data-original-title="Delete" btn btn-danger" action="delete"
+
+                    <g:actionSubmit class="btn btn-danger" action="delete"
                                     value="${message(code: 'default.button.delete.label', default: 'Delete')}"
                                     onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');"/>
                 </g:form>

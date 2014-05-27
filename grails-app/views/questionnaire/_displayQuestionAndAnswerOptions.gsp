@@ -1,5 +1,6 @@
 
 
+
 <tr>
     <td colspan="2">
 
@@ -12,13 +13,13 @@
                 <g:if test="${idx % 2 == 0}">
                     <tr>
                     <td>
-                    <input type="radio" name="answerCOs[${index}].optionSelected.id" value="${option.id}"/>&nbsp;
+                    <input type="radio" class="styled" name="answerCOs[${index}].optionSelected.id" value="${option.id}"/>&nbsp;
                     <label for="answerCOs[${index}].optionSelected">${option.name}</label>
                 </td>
                 </g:if>
                 <g:else>
                     <td>
-                    <g:radio name="answerCOs[${index}].optionSelected.id" value="${option.id}"/>&nbsp;
+                    <g:radio name="answerCOs[${index}].optionSelected.id" class="styled" value="${option.id}"/>&nbsp;
                         <label for="answerCOs[${index}].optionSelected">${option.name}</label>
                     </td>
                    </tr>

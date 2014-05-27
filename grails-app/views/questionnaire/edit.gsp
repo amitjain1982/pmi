@@ -30,6 +30,7 @@
 			</ul>
 			</g:hasErrors>
 			<g:form url="[resource:questionnaire, action:'update']" method="PUT"  class="form-horizontal form-bordered">
+                <input type="hidden" name="version" value="3" id="version">
             <div class="panel panel-default">
                 <div class="panel-heading"></div>
                 <div class="panel-body">
@@ -37,7 +38,7 @@
 					<g:render template="form"/>
                     </div>
                 <div class="form-actions text-right">
-					<g:actionSubmit class="save btn btn-primary" action="update btn btn-primary" value="${message(code: 'default.button.update.label', default: 'Update')}" />
+					<g:actionSubmit class="save btn btn-primary" action="update" value="${message(code: 'default.button.update.label', default: 'Update')}" />
 				</div>
                 </div>
 			</g:form>

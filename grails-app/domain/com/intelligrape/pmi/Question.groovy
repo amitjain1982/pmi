@@ -29,11 +29,4 @@ class Question {
 
     }
 
-
-
-
-
-
-
-
 }

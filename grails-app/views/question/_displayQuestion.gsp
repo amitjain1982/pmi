@@ -10,8 +10,9 @@
 </tr>
 
 
+
 <tr>
-    <td>
+    <td colspan="4">
         <table class="table-condensed">
             <g:each in="${question.options.sort { it.sequenceNumber }}" var="option" status="index">
                 <g:if test="${((index + 1) % 2)}">

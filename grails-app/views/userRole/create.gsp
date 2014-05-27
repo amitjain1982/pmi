@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<meta name="layout" content="main">
-		<g:set var="entityName" value="${message(code: 'questionnaire.label', default: 'Questionnaire')}" />
+		<g:set var="entityName" value="${message(code: 'userRole.label', default: 'UserRole')}" />
 		<title><g:message code="default.create.label" args="[entityName]" /></title>
 	</head>
 	<body>
@@ -13,20 +13,20 @@
         </nav>
     </div>
     <br/>
-    <h1><g:message class="page-title" code="default.create.label" args="[entityName]" /></h1>
+    <h1><g:message code="default.create.label" args="[entityName]" /></h1>
     <br/>
 		<div>
 			<g:if test="${flash.message}">
 			<div class="message" role="status">${flash.message}</div>
 			</g:if>
-			<g:hasErrors bean="${questionnaire}">
+			<g:hasErrors bean="${userRole}">
                 <ul class="errors" role="alert">
-                    <g:eachError bean="${questionnaire}" var="error">
+                    <g:eachError bean="${userRole}" var="error">
                         <li <g:if test="${error in org.springframework.validation.FieldError}">data-field-id="${error.field}"</g:if>><g:message error="${error}"/></li>
                     </g:eachError>
                 </ul>
             </g:hasErrors>
-			<g:form url="[resource:questionnaire, action:'save']"  class="form-horizontal form-bordered">
+			<g:form url="[resource:userRole, action:'save']"  class="form-horizontal form-bordered">
             <div class="panel panel-default">
                 <div class="panel-body">
                     <g:render template="form"/>
@@ -37,9 +37,5 @@
             </div>
 			</g:form>
 		</div>
-
-
-
-
 	</body>
 </html>

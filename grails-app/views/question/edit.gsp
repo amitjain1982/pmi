@@ -28,14 +28,15 @@
 				</g:eachError>
 			</ul>
 			</g:hasErrors>
-			<g:form url="[resource:question, action:'update']" method="PUT"  class="form-horizontal form-bordered">
+			<g:form url="[resource:question, action:'update']"  method="PUT" format=""  params="[questionCO:questionCO]" class="form-horizontal form-bordered">
             <div class="panel panel-default">
                 <div class="panel-body">
 				<g:hiddenField name="version" value="${question?.version}" />
+                <g:hiddenField name="id" value="${(questionCO.id )?: ''}"/>
 					<g:render template="form"/>
                     </div>
                 <div class="form-actions text-right">
-					<g:actionSubmit class="save btn btn-primary" action="update btn btn-primary" value="${message(code: 'default.button.update.label', default: 'Update')}" />
+					<g:actionSubmit class="save btn btn-primary" action="update" value="${message(code: 'default.button.update.label', default: 'Update')}" />
 				</div>
                 </div>
 			</g:form>

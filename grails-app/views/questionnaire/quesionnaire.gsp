@@ -31,7 +31,7 @@
 
     <br>
     <label for="comment">Additional Comments</label>
-    <g:textField name="comment" maxlength="256"/>
+    <g:textField name="comment" class="form-control" maxlength="256"/>
 
     <br>
     <g:hiddenField name="status" value="${com.intelligrape.pmi.enums.AnswerSheetStatus.COMPELETED}"/>
@@ -39,8 +39,8 @@
     <br>
 
     <div id="buttonDiv">
-        <span><input type="submit" name="submit" value="Submit" onclick="return requiredAllAnswers()"/></span>
-        <span><input type="button" name="reset" value="Reset" onclick="resetForm()"/></span>
+        <span><input type="submit" class="btn btn-primary" name="submit" value="Submit" onclick="return requiredAllAnswers()"/></span>
+        <span><input type="button" class="btn btn-success" name="reset" value="Reset" onclick="resetForm()"/></span>
     </div>
 </g:form>
 <r:layoutResources/>

@@ -14,6 +14,10 @@ class OptionController {
         respond new Option(params)
     }
 
+    def index(){
+
+    }
+
     @Transactional
     def save(Option option) {
         if (option == null) {

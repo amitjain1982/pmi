@@ -6,6 +6,10 @@ class UrlMappings {
                 // apply constraints here
             }
         }
+        "/$controller/update"{
+            
+        }
+
 
 
         "/"(view:"/index")

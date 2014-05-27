@@ -6,13 +6,12 @@ import com.intelligrape.pmi.enums.AnswerSheetStatus
 
 class AnswerSheet {
 
-
     String comment
     Double totalScore
     AnswerSheetStatus status
     Collabortaor attemptedBy
     java.util.Date dateAttempted
-    Project project // todo think over it more
+    Project project
 
     Date dateCreated
     Date lastUpdated
@@ -23,7 +22,6 @@ class AnswerSheet {
         this.properties=answerSheetCO.properties
     }
 
-
     static hasMany = [answers: Answer]
     static belongsTo = [questionnaire: Questionnaire]
 
@@ -31,14 +29,10 @@ class AnswerSheet {
     totalScore(nullable: true)
     }
 
-
-
     public Double calculateScore() {
-        (this?.answers*.optionSelected*.score?.sum()  ?: 0) as Double
+        Double maxMarks=(this.answers.size()*4)
+        Double scoreOutOfMaxMarks=(this?.answers*.optionSelected*.score?.sum()  ?: 0) as Double
+        Double scoreOutOf10=((scoreOutOfMaxMarks/maxMarks)*10)
+        this.totalScore=scoreOutOf10
     }
-
-
-
-
-
 }

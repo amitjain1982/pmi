@@ -37,7 +37,7 @@
 					<g:render template="form"/>
                     </div>
                 <div class="form-actions text-right">
-					<g:actionSubmit class="save btn btn-primary" action="update btn btn-primary" value="${message(code: 'default.button.update.label', default: 'Update')}" />
+					<g:actionSubmit class="save btn btn-primary" action="update" value="${message(code: 'default.button.update.label', default: 'Update')}" />
 				</div>
                 </div>
 			</g:form>

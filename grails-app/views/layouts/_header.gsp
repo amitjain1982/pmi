@@ -1,3 +1,4 @@
+<%@ page import="com.intelligrape.pmi.User" %>
 <div class="navbar navbar-inverse" role="navigation">
     <div class="navbar-header"><a class="navbar-brand" href="#">
         PMI
@@ -15,11 +16,15 @@
     <ul class="nav navbar-nav navbar-right collapse" id="navbar-icons">
         <li class="user dropdown"><a class="dropdown-toggle" data-toggle="dropdown">
 
-            <span>Eugene Kopyov</span><i class="caret"></i></a>
+            <span><sec:ifLoggedIn>
+               <sec:username/>
+            </sec:ifLoggedIn>
+            </span><i
+                    class="caret"></i></a>
             <ul class="dropdown-menu dropdown-menu-right icons-right">
                 <li><a href="#"><i class="icon-user"></i> Profile</a></li>
                 <li><a href="#"><i class="icon-cog"></i> Settings</a></li>
-                <li><a href="#"><i class="icon-exit"></i> Logout</a></li>
+                <li><a href="/grails/plugin/springsecurity/logout"><i class="icon-exit"></i> Logout</a></li>
             </ul></li>
     </ul>
 </div>

@@ -89,8 +89,8 @@
                     </div>
 
 
-                    <div col-sm-2><span class="icon-plus addOptionImage" name="optionAddImage"></span>
-                        <span class="icon-minus removeOptionImage" name="optionRemoveImage"></span>
+                    <div col-sm-2><span class="icon-plus addOptionImage"  name="optionAddImage"> </span>
+                        <span class="icon-minus removeOptionImage" name="optionRemoveImage"> </span>
                     </div>
 
                 </div>
@@ -112,7 +112,7 @@
             alert('Question cannot have less than two options')
 
         else
-            $(this).parent().parent('tr').remove();
+            $(this).parent().parent('.row').remove();
     });
 
 
@@ -127,12 +127,18 @@
                 '</div>' +
 
                 '<div class="col-sm-2 fieldcontain ${hasErrors(bean: optionCO, field: 'score', 'error')} required">' +
-                ' <g:select name="optionScore" class="form-control" from="${0..4}"/>' +
+                ' <select name="optionScore" class="form-control" >' +
+                '<option value="0" >0</option>'+
+                '<option value="1" >1</option>'+
+                '<option value="2" >2</option>'+
+                '<option value="3" >3</option>'+
+                '<option value="4" >4</option>'+
+                '</select>'+
                 '</div>' +
 
 
-                '<div col-sm-2><span class="icon-plus addOptionImage" name="optionAddImage"></span>' +
-                '<span class="icon-minus removeOptionImage" name="optionRemoveImage"></span>' +
+                '<div col-sm-2><span class="icon-plus addOptionImage" name="optionAddImage"> </span>' +
+                '<span class="icon-minus removeOptionImage" name="optionRemoveImage"> </span>' +
                 '</div>' +
 
                 '</div>';

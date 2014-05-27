@@ -18,7 +18,7 @@ class UserController {
         respond user
     }
 
-    def     create() {
+    def create() {
         respond new User(params)
     }
 

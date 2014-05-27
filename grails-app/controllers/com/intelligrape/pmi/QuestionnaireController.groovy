@@ -1,17 +1,18 @@
 package com.intelligrape.pmi
 
-import com.intelligrape.pmi.co.AnswerSheetCO
+
 
 import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
 
+@Transactional(readOnly = true)
 class QuestionnaireController {
 
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
-        respond Questionnaire.list(params), model: [questionnaireCount: Questionnaire.count()]
+        respond Questionnaire.list(params), model:[questionnaireCount: Questionnaire.count()]
     }
 
     def show(Questionnaire questionnaire) {
@@ -30,11 +31,11 @@ class QuestionnaireController {
         }
 
         if (questionnaire.hasErrors()) {
-            respond questionnaire.errors, view: 'create'
+            respond questionnaire.errors, view:'create'
             return
         }
 
-        questionnaire.save flush: true
+        questionnaire.save flush:true
 
         request.withFormat {
             form {
@@ -45,36 +46,30 @@ class QuestionnaireController {
         }
     }
 
-
-    def survey() {
-        render(view: 'quesionnaire', model: [questionnaire: Questionnaire.get('1')])
-    }
-
     def edit(Questionnaire questionnaire) {
         respond questionnaire
     }
 
-//    @Transactional
-    def update() {
-        
+    @Transactional
+    def update(Questionnaire questionnaire) {
         if (questionnaire == null) {
             notFound()
             return
         }
 
         if (questionnaire.hasErrors()) {
-            respond questionnaire.errors, view: 'edit'
+            respond questionnaire.errors, view:'edit'
             return
         }
 
-        questionnaire.save flush: true
+        questionnaire.save flush:true
 
         request.withFormat {
             form {
                 flash.message = message(code: 'default.updated.message', args: [message(code: 'Questionnaire.label', default: 'Questionnaire'), questionnaire.id])
                 redirect questionnaire
             }
-            '*' { respond questionnaire, [status: OK] }
+            '*'{ respond questionnaire, [status: OK] }
         }
     }
 
@@ -86,17 +81,16 @@ class QuestionnaireController {
             return
         }
 
-        questionnaire.delete flush: true
+        questionnaire.delete flush:true
 
         request.withFormat {
             form {
                 flash.message = message(code: 'default.deleted.message', args: [message(code: 'Questionnaire.label', default: 'Questionnaire'), questionnaire.id])
-                redirect action: "index", method: "GET"
+                redirect action:"index", method:"GET"
             }
-            '*' { render status: NO_CONTENT }
+            '*'{ render status: NO_CONTENT }
         }
     }
-
 
     protected void notFound() {
         request.withFormat {
@@ -104,14 +98,7 @@ class QuestionnaireController {
                 flash.message = message(code: 'default.not.found.message', args: [message(code: 'questionnaire.label', default: 'Questionnaire'), params.id])
                 redirect action: "index", method: "GET"
             }
-            '*' { render status: NOT_FOUND }
+            '*'{ render status: NOT_FOUND }
         }
     }
-
-    public questionnaireFeedback() {
-
-        [params:params]
-    }
-
-
 }

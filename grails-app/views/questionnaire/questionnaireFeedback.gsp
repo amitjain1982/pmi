@@ -15,6 +15,8 @@
 <body>
 
 <h3 style="text-align: center">Project Maturity Index Feedback</h3>
+
+<h4 class="h4" style="color:darkblue;font-family: arial, helvetica, verdana, sans-serif">Project Maturity Index for ${answerSheet.project.name} project is ${answerSheet.totalScore}</h4>
 <table class="table-condensed">
     <tbody>
 
@@ -31,7 +33,7 @@
             <g:each in="${answer.question.options}" var="option">
                 <g:if test="${option == answer.optionSelected}">
                     <td>
-                        <span class="label label-block label-info text-center">${option.name}</span>
+                        <label class="label label-block label-info text-center">${option.name}</label>
                     </td>
                 </g:if>
                 <g:else>
@@ -46,9 +48,7 @@
     </tbody>
 </table>
 
-<span class="label label-block label-primary text-info">
-    Project Maturity Index for your project is ${answerSheet.totalScore}
-</span>
+
 
 </body>
 </html>

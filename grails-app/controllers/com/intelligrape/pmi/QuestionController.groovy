@@ -16,19 +16,16 @@ class QuestionController {
 
     def create() {
 
-        Questionnaire questionnaire=Questionnaire.findById(params.long('questionnaireId'))
+        Questionnaire questionnaire = Questionnaire.findById(params.long('questionnaireId'))
         QuestionCO questionCO = new QuestionCO()
-        questionCO.questionnaire=questionnaire
+        questionCO.questionnaire = questionnaire
         questionCO.optionCOs = [new OptionCO(), new OptionCO()]
         render(view: 'create', model: [questionCO: questionCO, questionnaire: questionnaire])
     }
 
     @Transactional
     def save(QuestionCO questionCO) {
-        println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"+questionCO.properties)
-
         Question question = questionService.saveQuestion(questionCO)
-
         request.withFormat {
             form {
                 flash.message = message(code: 'default.created.message', args: [message(code: 'question.label', default: 'Question'), question.id])
@@ -42,12 +39,12 @@ class QuestionController {
 
     def edit(Question question) {
         QuestionCO questionCO = new QuestionCO(question)
-        render(view: 'edit', model: [questionCO: questionCO,questionnaire: question.questionnaire])
+        render(view: 'edit', model: [questionCO: questionCO, questionnaire: question.questionnaire])
     }
 
     @Transactional
     def update(QuestionCO questionCO) {
-        println "Updating question "
+
         if (questionCO == null) {
             notFound()
             return
@@ -64,19 +61,19 @@ class QuestionController {
         // delete option not found in optionCO
 
         //delete options that were deleted by the user
-        options.findAll{! questionCO.optionCOs*.id.contains(it.id)}.each{
+        options.findAll { !questionCO.optionCOs*.id.contains(it.id) }.each {
             question.removeFromOptions(it)
             it.delete()
         }
 
-        questionCO.optionCOs?.each{OptionCO co->
-            Option option = options.find{it.id == co.id}
-            if(option){
+        questionCO.optionCOs?.each { OptionCO co ->
+            Option option = options.find { it.id == co.id }
+            if (option) {
                 option.name = co.name
                 option.score = co.score
                 option.sequenceNumber = co.sequenceNumber
                 option.save()
-            }else{
+            } else {
                 option = new Option(co, question)
                 option.save()
                 question.addToOptions(option)
@@ -96,12 +93,12 @@ class QuestionController {
 
 //    @Transactional
     def delete(Question question) {
-        Questionnaire questionnaire=question.questionnaire
+        Questionnaire questionnaire = question.questionnaire
         question.delete()
-        redirect(controller: 'questionnaire', action: 'show', params: [id:questionnaire.id])
+        redirect(controller: 'questionnaire', action: 'show', params: [id: questionnaire.id])
     }
 
-        protected void notFound() {
+    protected void notFound() {
         request.withFormat {
             form {
                 flash.message = message(code: 'default.not.found.message', args: [message(code: 'question.label', default: 'Question'), params.id])
