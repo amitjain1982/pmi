@@ -15,5 +15,7 @@ class UrlMappings {
         "/"(view:"/index")
         "500"(view:'/error')
         "/success"(controller: 'test', action: 'success')
+        "/testMail"(controller: 'test', action: 'testMail')
+
 	}
 }

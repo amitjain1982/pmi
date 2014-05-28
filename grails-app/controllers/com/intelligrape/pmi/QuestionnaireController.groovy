@@ -1,6 +1,11 @@
 package com.intelligrape.pmi
 
+import com.intelligrape.pmi.common.AppConstant
+import com.intelligrape.pmi.enums.TemplateType
+import grails.plugin.springsecurity.annotation.Secured
+import sun.org.mozilla.javascript.internal.Token
 
+import javax.rmi.CORBA.Util
 
 import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
@@ -16,9 +21,24 @@ class QuestionnaireController {
     }
 
 
-    def survey(Questionnaire questionnaire) {
-
+    def survey(RequestToken requestToken) {
+        println "survey.................."
+        String questionnaireId = Utility.getCustomPropertyValue(requestToken, AppConstant.QUESTIONNAIRE_ID)
+        Questionnaire questionnaire = Questionnaire.get(new Long(questionnaireId))
         [questionnaire: questionnaire]
+    }
+
+    @Secured(['ROLE_ADMIN'])
+    def sendSurvey() {
+        Map paramsMap = [:]
+        Questionnaire questionnaire = Questionnaire.get(new Long(1))
+        paramsMap.put(AppConstant.QUESTIONNAIRE_ID, questionnaire.id)
+        String link = requestTokenService.generateLink("questionnaire", "survey", paramsMap)
+        println "link: ${link}"
+        Map messageParameters = [link: link]
+        emailService.sendTestMail('shikha.goel@intelligrape.com', EmailMessageTemplate.findByTemplateType(TemplateType.QUESTIONARE), messageParameters)
+        println "end: testMail==============================="
+        render "sent testMail with link : ${link}"
     }
 
 

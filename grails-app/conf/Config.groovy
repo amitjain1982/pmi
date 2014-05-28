@@ -178,3 +178,43 @@ grails.plugin.springsecurity.controllerAnnotations.staticRules = [
 
 // Added by the Spring Security OAuth plugin:
 grails.plugin.springsecurity.oauth.domainClass = 'com.intelligrape.pmi.OAuthID'
+
+
+grails {
+    mail {
+        host = "smtp.gmail.com"
+        port = 465
+        username = "Your email id"
+        password = "Your password"
+        props = ["mail.smtp.auth":"true",
+                "mail.smtp.socketFactory.port":"465",
+                "mail.smtp.socketFactory.class":"javax.net.ssl.SSLSocketFactory",
+                "mail.smtp.socketFactory.fallback":"false"]
+    }
+}
+
+pmi {
+    email {
+        daysToExpire = 3
+    }
+}
+
+
+grails {
+    mail {
+        host = "smtp.gmail.com"
+        port = 465
+        username = "shikha.goel@intelligrape.com"
+        password = "#shikha1197"
+        props = ["mail.smtp.auth":"true",
+                "mail.smtp.socketFactory.port":"465",
+                "mail.smtp.socketFactory.class":"javax.net.ssl.SSLSocketFactory",
+                "mail.smtp.socketFactory.fallback":"false"]
+    }
+}
+
+pmi {
+    email {
+        daysToExpire = 3
+    }
+}

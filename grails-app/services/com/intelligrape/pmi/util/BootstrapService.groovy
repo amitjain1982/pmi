@@ -1,20 +1,36 @@
-package com.intelligrape.pmi
+package com.intelligrape.pmi.util
 
+import com.intelligrape.pmi.Answer
+import com.intelligrape.pmi.AnswerSheet
+import com.intelligrape.pmi.Collabortaor
+import com.intelligrape.pmi.EmailMessageTemplate
+import com.intelligrape.pmi.Option
+import com.intelligrape.pmi.Project
+import com.intelligrape.pmi.Question
+import com.intelligrape.pmi.Questionnaire
+import com.intelligrape.pmi.Role
+import com.intelligrape.pmi.enums.TemplateType
+import com.intelligrape.pmi.User
+import com.intelligrape.pmi.UserRole
+import com.intelligrape.pmi.Vertical
+import com.intelligrape.pmi.common.AppConstant
 import com.intelligrape.pmi.enums.AnswerSheetStatus
 import com.intelligrape.pmi.enums.QuestionnaireCategory
 import com.intelligrape.pmi.enums.QuestionnaireStatus
 import grails.transaction.Transactional
 import com.intelligrape.pmi.enums.RoleType
+import org.apache.commons.logging.LogFactory
 
 @Transactional
 class BootstrapService {
+    private static final LOGGER = LogFactory.getLog(this)
 
     void initialize() {
 
         Role adminRole = createAdminRole()
         createUserRole()
 
-        User admin = createAdmin(adminRole)
+        createAdmin(adminRole)
 
         addVertical()
 
@@ -26,6 +42,7 @@ class BootstrapService {
 
         addCollaborator(project)
 
+        createQuestionareTemplate()
 
     }
 
@@ -109,4 +126,14 @@ class BootstrapService {
         collabortor.save()
     }
 
+    private static void createQuestionareTemplate() {
+        //TODO: need to change template
+        EmailMessageTemplate template = new EmailMessageTemplate(templateType: TemplateType.QUESTIONARE, subject: 'PMI questionare', fromEmail: AppConstant.FROM)
+        template.body =
+                """Click on following link to submit your questionare.
+            {link}
+            """
+        LOGGER.debug("createQuestionareTemplate, templateType: ${template.templateType}, subject: ${template.subject}, fromEmail: ${template.fromEmail}, body: ${template.body}")
+        template.save()
+    }
 }
