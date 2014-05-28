@@ -1,6 +1,9 @@
 package com.intelligrape.pmi
 
 import com.intelligrape.pmi.co.AnswerSheetCO
+import com.intelligrape.pmi.enums.RoleType
+import grails.plugin.springsecurity.SpringSecurityService
+import grails.plugin.springsecurity.annotation.Secured
 
 import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
@@ -9,17 +12,37 @@ class AnswerSheetController {
 
 
     AnswerSheetService answerSheetService
-
+    SpringSecurityService springSecurityService
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
+    @Secured(['ROLE_ADMIN'])
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
         respond AnswerSheet.list(params), model: [answerSheetCount: AnswerSheet.count()]
     }
 
-    def show(AnswerSheet answerSheet) {
-        respond answerSheet
+    @Secured(['ROLE_ADMIN'])
+    def show() {
+
+        AnswerSheet answerSheet = AnswerSheet.findById(params.long('answerSheetId'))
+        [answerSheet: answerSheet]
     }
+
+
+    @Secured(['ROLE_ADMIN', 'ROLE_USER'])
+    def showForUser() {
+
+        AnswerSheet answerSheet
+        User user = springSecurityService.getCurrentUser()
+        Collabortaor collaborator = Collabortaor.findByEmail(user.username)
+        if (collaborator) {
+            answerSheet = AnswerSheet.findByAttemptedBy(collaborator)
+            render(view: 'show',model: [answerSheet: answerSheet])
+        } else
+            render "You have not attempted PMI survey yet"
+
+    }
+
 
     def create() {
         respond new AnswerSheet(params)
@@ -107,9 +130,7 @@ class AnswerSheetController {
 
     def submitSurvey(AnswerSheetCO answerSheetCO) {
         AnswerSheet answerSheet = answerSheetService.submitSurveyAndCreateAnswerSheet(answerSheetCO)
-//        render "Total Score is" + answerSheet.totalScore
-        render(view: '/questionnaire/questionnaireFeedback', model: ['answerSheet' : answerSheet])
+        render(view: '/answerSheet/show', model: ['answerSheet': answerSheet])
     }
-
 
 }

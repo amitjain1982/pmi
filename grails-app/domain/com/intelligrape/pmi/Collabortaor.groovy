@@ -13,8 +13,8 @@ class Collabortaor {
 
 
     static constraints = {
-        email(email: true)
-        name(unique: true)
+        email(email: true,unique: 'name')
+
     }
 
 

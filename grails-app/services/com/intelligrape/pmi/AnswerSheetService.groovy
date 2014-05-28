@@ -1,10 +1,13 @@
 package com.intelligrape.pmi
 
 import com.intelligrape.pmi.co.AnswerSheetCO
+import grails.plugin.springsecurity.SpringSecurityService
 import grails.transaction.Transactional
 
 @Transactional
 class AnswerSheetService {
+
+    SpringSecurityService springSecurityService
 
     def serviceMethod() {
     }
@@ -15,9 +18,10 @@ class AnswerSheetService {
         List<Answer> answers=[]
 
         AnswerSheet answerSheet=new AnswerSheet(answerSheetCO)
+        User currentUser=springSecurityService.currentUser
+        Collabortaor collabortaor=new Collabortaor(name:'Amit',email:currentUser.username,isProjectOwner: 'true' ,project: Project.get(1)).save()
 
-//        answerSheet.answers=answers
-        answerSheet.attemptedBy=Collabortaor.get('1')
+        answerSheet.attemptedBy=collabortaor
 
         answerSheetCO.answerCOs?.each {answerCO->
             Answer answer = new Answer(answerCO)

@@ -151,8 +151,10 @@
                     <g:link class="edit tip btn btn-primary" resource="${questionnaire}" action="edit"
                             params="['questionnaire.id': questionnaire.id]"><g:message
                             code="default.button.edit.label" default="Edit"/></g:link>
-
-                    <g:actionSubmit class="btn btn-danger" action="delete"
+                    <g:link class="prev tip btn btn-success" resource="${questionnaire}" action="survey"
+                            params="['questionnaire.id': questionnaire.id]"><g:message
+                            code="default.button.preview.label" default="Preview"/></g:link>
+                    <g:actionSubmit class="btn btn-info" action="delete"
                                     value="${message(code: 'default.button.delete.label', default: 'Delete')}"
                                     onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');"/>
                 </g:form>
