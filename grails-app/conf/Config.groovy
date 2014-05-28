@@ -15,7 +15,7 @@ grails.gorm.default.constraints = {
     '*'(blank: false)
 }
 
-
+grails.config.locations = ["classpath:systemsettings.properties", LocalConfig]
 def appName = grails.util.Metadata.current.'app.name'
 def baseURL = grails.serverURL ?: "http://127.0.0.1:${System.getProperty('server.port', '8080')}/${appName}"
 
@@ -204,8 +204,8 @@ grails {
     mail {
         host = "smtp.gmail.com"
         port = 465
-        username = "shikha.goel@intelligrape.com"
-        password = "#shikha1197"
+        username = "Your Email Address"
+        password = "Your Password"
         props = ["mail.smtp.auth":"true",
                 "mail.smtp.socketFactory.port":"465",
                 "mail.smtp.socketFactory.class":"javax.net.ssl.SSLSocketFactory",
